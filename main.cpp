@@ -35,6 +35,14 @@ SDL_Texture* musicOffTex = nullptr;
 SDL_Texture* helpTex     = nullptr;
 SDL_Texture* bushTex     = nullptr;
 SDL_Texture* rockTex     = nullptr;
+// Âm thanh
+Mix_Music* menuMusic = nullptr;   // music1.wav – nhạc menu
+Mix_Music* gameMusic = nullptr;   // music2.wav – nhạc game
+Mix_Music* loseMusic = nullptr;   // music3.wav – nhạc thua
+
+//Mix_Chunk* clickSound   = nullptr;
+//Mix_Chunk* successSound = nullptr;
+//Mix_Chunk* failSound    = nullptr;
 
 // Trạng thái
 bool quit         = false;
@@ -47,6 +55,7 @@ int  currentLevel = 1;
 int  totalLevels  = 1;        // Ở đây ví dụ 1 level
 Uint32 startTime  = 0;        // Thời điểm bắt đầu game
 int  timeLeft     = GAME_TIME; // Đếm ngược
+bool musicPaused = false; // Theo dõi nhạc đang bị pause hay không
 
 // Tọa độ thỏ, nhà
 int rabbitRow = 0, rabbitCol = 0;
@@ -164,14 +173,16 @@ bool loadMedia() {
     }
 
     // Âm thanh
-    bgMusic      = Mix_LoadMUS("music1.wav");
-    clickSound   = Mix_LoadWAV("music2.wav");
-    successSound = Mix_LoadWAV("music3.wav");
-    failSound    = Mix_LoadWAV("music4.wav");
+    menuMusic = Mix_LoadMUS("music1.wav");
+    gameMusic = Mix_LoadMUS("music2.wav");
+    loseMusic = Mix_LoadMUS("music3.wav");
+    //clickSound   = Mix_LoadWAV("music2.wav");  // Nếu cần, giữ nguyên clickSound
+    //successSound = Mix_LoadWAV("music3.wav");   // Nếu cần, giữ nguyên successSound
+    //failSound    = Mix_LoadWAV("music4.wav");   // Nếu cần, giữ nguyên failSound
 
-    if(!bgMusic || !clickSound || !successSound || !failSound) {
+    if (!menuMusic || !gameMusic || !loseMusic) {//|| !clickSound || !successSound || !failSound) {
         std::cout << "Failed to load sounds.\n";
-        return false;
+    return false;
     }
     return true;
 }
@@ -189,11 +200,11 @@ void closeSDL() {
     SDL_DestroyTexture(rockTex);
     bgMenuTex = bgGameTex = rabbitTex = houseTex = musicOnTex = musicOffTex = helpTex = bushTex = rockTex = nullptr;
 
-    Mix_FreeMusic(bgMusic);
-    Mix_FreeChunk(clickSound);
-    Mix_FreeChunk(successSound);
-    Mix_FreeChunk(failSound);
-    bgMusic = nullptr; clickSound = nullptr; successSound = nullptr; failSound = nullptr;
+    Mix_FreeMusic(menuMusic);
+    Mix_FreeMusic(gameMusic);
+    Mix_FreeMusic(loseMusic);
+    menuMusic = gameMusic = loseMusic = nullptr;
+
 
     TTF_CloseFont(gFont);
     gFont = nullptr;
@@ -236,18 +247,35 @@ void handleMenuClick(int x, int y) {
             Mix_PlayChannel(-1, clickSound, 0);
             switch(btn.type) {
                 case BTN_START:
-                    // Bắt đầu game
+                    // Bắt đầu game: dừng nhạc menu, phát nhạc game
                     isMenu = false;
+                    Mix_HaltMusic();
+                    if (musicOn)
+                        Mix_PlayMusic(gameMusic, -1);
                     break;
                 case BTN_MUSIC:
-                    // Bật/tắt nhạc
                     musicOn = !musicOn;
-                    if(musicOn) {
-                        Mix_PlayMusic(bgMusic, -1);
+                    if (musicOn) {
+                    // Nếu trước đó nhạc đang tạm dừng, resume
+                        if (musicPaused) {
+                            Mix_ResumeMusic();
+                            musicPaused = false;
+                        } else {
+                        // Nếu chưa từng phát nhạc hoặc đã halt, thì PlayMusic
+                        // Phát menuMusic hoặc gameMusic tùy trạng thái
+                            if (isMenu) {
+                                Mix_PlayMusic(menuMusic, -1);
+                            } else {
+                                Mix_PlayMusic(gameMusic, -1);
+                            }
+                        }
                     } else {
-                        Mix_HaltMusic();
+                    // Thay vì Mix_HaltMusic(), ta dùng Mix_PauseMusic()
+                        Mix_PauseMusic();
+                        musicPaused = true;
                     }
                     break;
+
                 case BTN_HELP:
                     // Bật/tắt màn hình hướng dẫn
                     showHelp = !showHelp;
@@ -256,7 +284,6 @@ void handleMenuClick(int x, int y) {
         }
     }
 }
-
 // Vẽ menu
 void renderMenu() {
     // Vẽ background
@@ -276,7 +303,7 @@ void renderMenu() {
         std::string text = "Button";
         if(btn.type == BTN_START) text = "START";
         else if(btn.type == BTN_MUSIC) text = (musicOn ? "MUSIC: ON" : "MUSIC: OFF");
-        else if(btn.type == BTN_HELP) text = "HELP";
+        else if(btn.type == BTN_HELP) text = "GUIDE";
 
         SDL_Color white = {255, 255, 255, 255};
         SDL_Texture* textTex = renderText(text, white);
@@ -315,10 +342,13 @@ bool isObstacle(int row, int col) {
 // Kiểm tra đã thắng: path lấp hết ô đen?
 // Ở đây: lấp hết = path.size() == GRID_SIZE*GRID_SIZE - số chướng ngại
 bool checkWin() {
-    int totalObstacles = obstacles.size();
-    if(path.size() >= (size_t)(GRID_SIZE*GRID_SIZE - totalObstacles)) {
+    int totalCells = GRID_SIZE * GRID_SIZE - obstacles.size();
+    if ((int)path.size() >= totalCells &&
+        path.front() == std::make_pair(rabbitRow, rabbitCol) &&
+        path.back() == std::make_pair(houseRow, houseCol)) {
         return true;
-    }
+}
+
     return false;
 }
 
@@ -476,20 +506,23 @@ void gameLoop() {
     }
 
     while(!quit && !levelComplete && !gameOver) {
-        // Cập nhật timeLeft
-        Uint32 currentTime = SDL_GetTicks();
-        Uint32 elapsed = (currentTime - startTime)/1500; // giây
-        if(elapsed >= GAME_TIME) {
-            gameOver = true; // Hết giờ
-        } else {
-            timeLeft = GAME_TIME - elapsed;
+    Uint32 currentTime = SDL_GetTicks();
+    float elapsed = (currentTime - startTime) / 1000.0f; // >>> CHANGED HERE <<<
+    if(elapsed >= GAME_TIME) {
+        gameOver = true;
+        Mix_HaltMusic();       // Dừng nhạc cũ
+        musicPaused = true;
+        if (musicOn) {
+            Mix_PlayMusic(loseMusic, 0); // Phát 1 lần
         }
-
-        handleGameEvents();
-        renderGame();
-        SDL_Delay(1000/FPS);
+    } else {
+        timeLeft = GAME_TIME - (int)elapsed;
     }
 
+    handleGameEvents();
+    renderGame();
+    SDL_Delay(1000/FPS);
+}
     // Nếu người chơi thắng, chờ 2s
     if(levelComplete) {
         SDL_Delay(2000);
@@ -514,9 +547,10 @@ int main(int argc, char* argv[]) {
     initMenuButtons();
 
     // Phát nhạc nền menu (nếu bật)
-    if(musicOn && bgMusic) {
-        Mix_PlayMusic(bgMusic, -1);
+    if (musicOn && isMenu) {
+        Mix_PlayMusic(menuMusic, -1);
     }
+
 
     while(!quit) {
         if(isMenu) {
