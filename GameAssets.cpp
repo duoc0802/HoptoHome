@@ -30,7 +30,7 @@ bool initSDL() {
         return false;
     }
     gWindow = SDL_CreateWindow("Hop to Home", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                               SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+                           SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (!gWindow) {
         std::cout << "CreateWindow Error: " << SDL_GetError() << std::endl;
         return false;
@@ -66,9 +66,9 @@ bool loadMedia() {
     gFont = TTF_OpenFont("font.ttf", 28);
     if (!gFont) return false;
 
-    bgMenuTex   = loadTexture("backMenu.png");
-    bgGameTex   = loadTexture("back2.png");
-    rabbitTex   = loadTexture("rabbit1.png");
+    bgMenuTex   = loadTexture("back4.png");
+    bgGameTex   = loadTexture("backgame.jpg");
+    rabbitTex   = loadTexture("rabbit2.png");
     houseTex    = loadTexture("house1.png");
     musicOnTex  = loadTexture("loa.png");
     musicOffTex = loadTexture("loa.png");
@@ -111,4 +111,3 @@ void closeSDL() {
     TTF_Quit();
     SDL_Quit();
 }
-

@@ -13,9 +13,9 @@ bool showHelp     = false;
 
 void initMenuButtons() {
     menuButtons.clear();
-    menuButtons.push_back({{220, 200, 200, 60}, BTN_START});
-    menuButtons.push_back({{220, 300, 200, 60}, BTN_MUSIC});
-    menuButtons.push_back({{220, 400, 200, 60}, BTN_HELP});
+    menuButtons.push_back({{380, 200, 200, 60}, BTN_START});  // Nút Start
+    menuButtons.push_back({{380, 300, 200, 60}, BTN_MUSIC});  // Nút Music
+    menuButtons.push_back({{380, 400, 200, 60}, BTN_HELP});   // Nút Help
 }
 
 void handleMenuClick(int x, int y) {
@@ -78,4 +78,3 @@ void renderMenu() {
         renderTexture(helpTex, 50, 50, SCREEN_WIDTH - 100, SCREEN_HEIGHT - 100);
     }
 }
-

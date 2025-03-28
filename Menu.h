@@ -18,4 +18,3 @@ void handleMenuClick(int x, int y);
 void renderMenu();
 
 #endif // MENU_H
-

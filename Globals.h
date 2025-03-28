@@ -15,4 +15,3 @@ extern int currentLevel;
 extern const int totalLevels;
 
 #endif // GLOBALS_H
-

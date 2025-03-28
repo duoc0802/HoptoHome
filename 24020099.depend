@@ -1,11 +1,100 @@
 # depslib dependency file v1.0
-1743052281 source:d:\somen\code blocks\24020099\main.cpp
+1743175633 source:d:\somen\code blocks\24020099\main.cpp
+	"Globals.h"
+	"Constants.h"
+	"GameAssets.h"
+	"Menu.h"
+	"Game.h"
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1743175633 source:d:\somen\code blocks\24020099\constants.cpp
+	"Constants.h"
+
+1743175633 d:\somen\code blocks\24020099\constants.h
+
+1743175633 source:d:\somen\code blocks\24020099\game.cpp
+	"Game.h"
+	"GameAssets.h"
+	"Utils.h"
+	"Constants.h"
+	"Level.h"
+	"Globals.h"
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1743175633 d:\somen\code blocks\24020099\game.h
+	<SDL.h>
+	<vector>
+	<set>
+	"Level.h"
+
+1743175633 d:\somen\code blocks\24020099\level.h
+	<vector>
+	<utility>
+	<SDL.h>
+
+1743175633 d:\somen\code blocks\24020099\gameassets.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
 	<SDL_ttf.h>
-	<iostream>
-	<vector>
+
+1743175633 d:\somen\code blocks\24020099\utils.h
+	<SDL.h>
 	<string>
-	<set>
+
+1743175633 d:\somen\code blocks\24020099\globals.h
+	<SDL.h>
+	<vector>
+	<utility>
+
+1743175633 source:d:\somen\code blocks\24020099\gameassets.cpp
+	"GameAssets.h"
+	"Utils.h"
+	"Constants.h"
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1743175633 source:d:\somen\code blocks\24020099\globals.cpp
+	"Globals.h"
+
+1743175633 source:d:\somen\code blocks\24020099\level.cpp
+	"Level.h"
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1743175633 d:\somen\code blocks\24020099\menu.h
+	<SDL.h>
+	<vector>
+
+1743175633 source:d:\somen\code blocks\24020099\menu.cpp
+	"Menu.h"
+	"GameAssets.h"
+	"Utils.h"
+	"Constants.h"
+	"Globals.h"
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1743175569 source:d:\somen\code blocks\24020099\utils.cpp
+	"Utils.h"
+	"GameAssets.h"
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
 

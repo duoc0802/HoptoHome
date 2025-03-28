@@ -29,4 +29,3 @@ bool loadMedia();
 void closeSDL();
 
 #endif // GAME_ASSETS_H
-

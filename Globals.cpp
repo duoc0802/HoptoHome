@@ -6,4 +6,3 @@ bool musicPaused = false;
 bool isMenu = true;
 //int currentLevel = 1;
 const int totalLevels = 2;
-
