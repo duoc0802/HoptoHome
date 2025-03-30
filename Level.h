@@ -1,29 +1,27 @@
+// Level.h
 #ifndef LEVEL_H
 #define LEVEL_H
 
 #include <vector>
-#include <utility> // cho std::pair
-#include <SDL.h>   // cho SDL_Color
+#include <utility>
 
-// Cấu trúc dữ liệu cho một Level
 struct Level {
-    std::pair<int, int> rabbitPos;         // Tọa độ của thỏ
-    std::pair<int, int> housePos;          // Tọa độ của nhà
-    SDL_Color rabbitColor;                 // Màu của thỏ
-    SDL_Color houseColor;                  // Màu của nhà
-    std::vector<std::pair<int, int>> obstacles; // Danh sách tọa độ vật cản
-    std::vector<std::pair<int, int>> bridges;   // Danh sách tọa độ cây cầu
+    std::pair<int, int> rabbitPos;  // Vị trí thỏ
+    std::pair<int, int> housePos;   // Vị trí nhà
+    std::vector<std::pair<int, int>> obstacles;  // Danh sách vật cản
+    std::vector<std::pair<int, int>> bridges;    // Danh sách cây cầu
+    int rows;  // Số hàng của lưới
+    int cols;  // Số cột của lưới
 };
 
-// Class quản lý các level
 class LevelManager {
+private:
+    Level currentLevel;
+
 public:
     LevelManager();
-    void loadLevel(int levelNumber);       // Tải dữ liệu cho level cụ thể
-    const Level& getCurrentLevel() const;  // Lấy thông tin level hiện tại
-
-private:
-    Level currentLevel;                    // Level đang chơi
+    void loadLevel(int levelNumber);
+    const Level& getCurrentLevel() const;
 };
 
 #endif // LEVEL_H

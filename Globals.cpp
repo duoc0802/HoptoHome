@@ -4,5 +4,5 @@ bool quit = false;
 bool musicOn = true;
 bool musicPaused = false;
 bool isMenu = true;
-//int currentLevel = 1;
-const int totalLevels = 2;
+const int totalLevels = 8;
+bool musicPlaying = false;

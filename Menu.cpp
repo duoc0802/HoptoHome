@@ -3,6 +3,7 @@
 #include "Utils.h"
 #include "Constants.h"
 #include "Globals.h"
+#include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -13,9 +14,9 @@ bool showHelp     = false;
 
 void initMenuButtons() {
     menuButtons.clear();
-    menuButtons.push_back({{380, 200, 200, 60}, BTN_START});  // N�t Start
-    menuButtons.push_back({{380, 300, 200, 60}, BTN_MUSIC});  // N�t Music
-    menuButtons.push_back({{380, 400, 200, 60}, BTN_HELP});   // N�t Help
+    menuButtons.push_back({{380, 180, 200, 60}, BTN_START});  // Nút Start
+    menuButtons.push_back({{380, 280, 200, 60}, BTN_MUSIC});  // Nút Music
+    menuButtons.push_back({{380, 380, 200, 60}, BTN_HELP});   // Nút Help
 }
 
 void handleMenuClick(int x, int y) {
@@ -24,6 +25,7 @@ void handleMenuClick(int x, int y) {
             y >= btn.box.y && y <= btn.box.y + btn.box.h) {
             switch (btn.type) {
                 case BTN_START:
+                    std::cout << "Start button clicked!" << std::endl;
                     isMenu = false;
                     Mix_HaltMusic();
                     if (musicOn) Mix_PlayMusic(gameMusic, -1);
@@ -51,8 +53,14 @@ void handleMenuClick(int x, int y) {
 }
 
 void renderMenu() {
-    renderTexture(bgMenuTex, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
+    renderTexture(bgMenuTex, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT); // Vẽ nền
+    if (titleTex) {
+        int titleWidth, titleHeight;
+        SDL_QueryTexture(titleTex, NULL, NULL, &titleWidth, &titleHeight);
+        // Đặt y = 0 để đưa title.png lên sát đỉnh
+        renderTexture(titleTex, (SCREEN_WIDTH - titleWidth) / 2, 30);
+    }
+    // Phần còn lại của hàm giữ nguyên
     for (auto &btn : menuButtons) {
         SDL_SetRenderDrawColor(gRenderer, 128, 128, 128, 255);
         SDL_RenderFillRect(gRenderer, &btn.box);
@@ -73,7 +81,6 @@ void renderMenu() {
             SDL_DestroyTexture(textTex);
         }
     }
-
     if (showHelp) {
         renderTexture(helpTex, 50, 50, SCREEN_WIDTH - 100, SCREEN_HEIGHT - 100);
     }

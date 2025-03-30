@@ -1,3 +1,4 @@
+// GameAssets.h
 #ifndef GAME_ASSETS_H
 #define GAME_ASSETS_H
 
@@ -14,11 +15,14 @@ extern SDL_Texture* bgMenuTex;
 extern SDL_Texture* bgGameTex;
 extern SDL_Texture* rabbitTex;
 extern SDL_Texture* houseTex;
-extern SDL_Texture* musicOnTex;
-extern SDL_Texture* musicOffTex;
 extern SDL_Texture* helpTex;
 extern SDL_Texture* bushTex;
 extern SDL_Texture* rockTex;
+extern SDL_Texture* pauseTex;  // Chỉ giữ lại texture cho nút Pause
+extern SDL_Texture* titleTex;
+extern SDL_Texture* nextLevelTex;
+extern SDL_Texture* youWinTex;
+extern SDL_Texture* gameOverTex;
 
 extern Mix_Music* menuMusic;
 extern Mix_Music* gameMusic;

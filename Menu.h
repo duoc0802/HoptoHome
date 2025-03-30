@@ -1,3 +1,4 @@
+// Menu.h
 #ifndef MENU_H
 #define MENU_H
 
@@ -16,5 +17,6 @@ extern std::vector<Button> menuButtons;
 void initMenuButtons();
 void handleMenuClick(int x, int y);
 void renderMenu();
+void menuLoop();  // Thêm khai báo cho menuLoop()
 
 #endif // MENU_H

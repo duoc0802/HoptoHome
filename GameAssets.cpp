@@ -1,3 +1,4 @@
+// GameAssets.cpp
 #include "GameAssets.h"
 #include "Utils.h"
 #include "Constants.h"
@@ -6,12 +7,14 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
+
 SDL_Window*   gWindow   = nullptr;
 SDL_Renderer* gRenderer = nullptr;
 TTF_Font*     gFont     = nullptr;
 
 SDL_Texture* bgMenuTex   = nullptr;
 SDL_Texture* bgGameTex   = nullptr;
+SDL_Texture* bgOutsideTex = nullptr;  // Texture cho nền bên ngoài khu vực chơi game
 SDL_Texture* rabbitTex   = nullptr;
 SDL_Texture* houseTex    = nullptr;
 SDL_Texture* musicOnTex  = nullptr;
@@ -19,6 +22,11 @@ SDL_Texture* musicOffTex = nullptr;
 SDL_Texture* helpTex     = nullptr;
 SDL_Texture* bushTex     = nullptr;
 SDL_Texture* rockTex     = nullptr;
+SDL_Texture* pauseTex    = nullptr;  // Chỉ giữ lại texture cho nút Pause
+SDL_Texture* titleTex = nullptr;
+SDL_Texture* nextLevelTex = nullptr;
+SDL_Texture* youWinTex = nullptr;
+SDL_Texture* gameOverTex = nullptr;
 
 Mix_Music* menuMusic = nullptr;
 Mix_Music* gameMusic = nullptr;
@@ -35,8 +43,6 @@ bool initSDL() {
         std::cout << "CreateWindow Error: " << SDL_GetError() << std::endl;
         return false;
     }
-    // Thiết lập chất lượng scale texture (nên đặt trước khi tạo renderer)
-    //SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
     gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!gRenderer) {
         std::cout << "CreateRenderer Error: " << SDL_GetError() << std::endl;
@@ -47,7 +53,7 @@ bool initSDL() {
         std::cout << "SDL_image init error: " << IMG_GetError() << std::endl;
         return false;
     }
-    SDL_Surface* image = IMG_Load("back2.png");
+    SDL_Surface* image = IMG_Load("backgame.jpg");
     if (!image) {
         std::cout << "IMG_Load Error: " << IMG_GetError() << std::endl;
     }
@@ -63,21 +69,24 @@ bool initSDL() {
 }
 
 bool loadMedia() {
-    gFont = TTF_OpenFont("font.ttf", 28);
+    gFont = TTF_OpenFont("font2.ttf", 22);
     if (!gFont) return false;
 
-    bgMenuTex   = loadTexture("back4.png");
-    bgGameTex   = loadTexture("backgame.jpg");
-    rabbitTex   = loadTexture("rabbit2.png");
-    houseTex    = loadTexture("house1.png");
-    musicOnTex  = loadTexture("loa.png");
-    musicOffTex = loadTexture("loa.png");
-    helpTex     = loadTexture("ô.png");
-    bushTex     = loadTexture("bush1.png");
-    rockTex     = loadTexture("rock1.png");
+    bgMenuTex    = loadTexture("back5.png");
+    bgGameTex    = loadTexture("backgame.jpg");
+    bgOutsideTex = loadTexture("back4.png");  // Tải hình ảnh mới cho nền bên ngoài
+    rabbitTex    = loadTexture("rabbit2.png");
+    houseTex     = loadTexture("house1.png");
+    helpTex      = loadTexture("guide.png");
+    bushTex      = loadTexture("bush3.png");
+    rockTex      = loadTexture("rock1.png");
+    pauseTex     = loadTexture("pause.png");  // Chỉ giữ lại texture cho nút Pause
+    titleTex     = loadTexture("title1.png");
+    nextLevelTex = loadTexture("nextlevel1.png");
+    youWinTex    = loadTexture("youwin1.png");
+    gameOverTex  = loadTexture("gameover1.png");
 
-    if (!bgMenuTex || !bgGameTex || !rabbitTex || !houseTex || !musicOnTex ||
-        !musicOffTex || !helpTex || !bushTex || !rockTex) return false;
+    if (!bgMenuTex || !bgGameTex || !bgOutsideTex || !rabbitTex || !houseTex || !helpTex || !bushTex || !rockTex || !pauseTex || !titleTex || !nextLevelTex || !youWinTex || !gameOverTex) return false;
 
     menuMusic = Mix_LoadMUS("music1.wav");
     gameMusic = Mix_LoadMUS("music2.wav");
@@ -89,13 +98,17 @@ bool loadMedia() {
 void closeSDL() {
     SDL_DestroyTexture(bgMenuTex);
     SDL_DestroyTexture(bgGameTex);
+    SDL_DestroyTexture(bgOutsideTex);  // Hủy texture nền bên ngoài
     SDL_DestroyTexture(rabbitTex);
-    SDL_DestroyTexture(houseTex);
-    SDL_DestroyTexture(musicOnTex);
-    SDL_DestroyTexture(musicOffTex);
+    SDL_DestroyTexture(houseTex);;
     SDL_DestroyTexture(helpTex);
     SDL_DestroyTexture(bushTex);
     SDL_DestroyTexture(rockTex);
+    SDL_DestroyTexture(pauseTex);  // Hủy texture Pause
+    SDL_DestroyTexture(titleTex);
+    SDL_DestroyTexture(nextLevelTex);
+    SDL_DestroyTexture(youWinTex);
+    SDL_DestroyTexture(gameOverTex);
 
     Mix_FreeMusic(menuMusic);
     Mix_FreeMusic(gameMusic);

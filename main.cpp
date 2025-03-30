@@ -36,18 +36,17 @@ int main(int argc, char* argv[]) {
         } else {
             gameLoop();
             if (levelComplete) {
-                currentLevel++;
-                if (currentLevel > totalLevels) {
-                    std::cout << "Chúc mừng! Bạn đã hoàn thành tất cả các level!\n";
-                    isMenu = true;
-                    currentLevel = 1;
-                } else {
-                    std::cout << "Level " << currentLevel - 1 << " hoàn thành! Tiếp tục Level " << currentLevel << "\n";
-                }
-                levelComplete = false;
-            } else if (gameOver) { // Thêm điều kiện gameOver từ Game.cpp
-                isMenu = true;
-            }
+    currentLevel++;
+    if (currentLevel > totalLevels) {
+        std::cout << "Chúc mừng! Bạn đã hoàn thành tất cả các level!\n";
+        isMenu = true;
+        currentLevel = 1;
+        musicPlaying = false; // Đặt lại để phát nhạc khi bắt đầu lại
+    }
+} else if (gameOver) {
+    isMenu = true;
+    musicPlaying = false; // Đặt lại để phát nhạc khi bắt đầu lại
+}
         }
     }
 
