@@ -267,7 +267,6 @@ void gameLoop() {
     houseRow = level.housePos.first;
     houseCol = level.housePos.second;
     obstacles = level.obstacles;
-    bridges = level.bridges;
     rows = level.rows;
     cols = level.cols;
 

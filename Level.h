@@ -9,7 +9,6 @@ struct Level {
     std::pair<int, int> rabbitPos;  // Vị trí thỏ
     std::pair<int, int> housePos;   // Vị trí nhà
     std::vector<std::pair<int, int>> obstacles;  // Danh sách vật cản
-    std::vector<std::pair<int, int>> bridges;    // Danh sách cây cầu
     int rows;  // Số hàng của lưới
     int cols;  // Số cột của lưới
 };

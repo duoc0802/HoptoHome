@@ -17,7 +17,6 @@ extern SDL_Texture* rabbitTex;
 extern SDL_Texture* houseTex;
 extern SDL_Texture* helpTex;
 extern SDL_Texture* bushTex;
-extern SDL_Texture* rockTex;
 extern SDL_Texture* pauseTex;  // Chỉ giữ lại texture cho nút Pause
 extern SDL_Texture* titleTex;
 extern SDL_Texture* nextLevelTex;

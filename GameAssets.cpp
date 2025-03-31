@@ -79,14 +79,13 @@ bool loadMedia() {
     houseTex     = loadTexture("house1.png");
     helpTex      = loadTexture("guide.png");
     bushTex      = loadTexture("bush3.png");
-    rockTex      = loadTexture("rock1.png");
     pauseTex     = loadTexture("pause.png");  // Chỉ giữ lại texture cho nút Pause
     titleTex     = loadTexture("title1.png");
     nextLevelTex = loadTexture("nextlevel1.png");
     youWinTex    = loadTexture("youwin1.png");
     gameOverTex  = loadTexture("gameover1.png");
 
-    if (!bgMenuTex || !bgGameTex || !bgOutsideTex || !rabbitTex || !houseTex || !helpTex || !bushTex || !rockTex || !pauseTex || !titleTex || !nextLevelTex || !youWinTex || !gameOverTex) return false;
+    if (!bgMenuTex || !bgGameTex || !bgOutsideTex || !rabbitTex || !houseTex || !helpTex || !bushTex || !pauseTex || !titleTex || !nextLevelTex || !youWinTex || !gameOverTex) return false;
 
     menuMusic = Mix_LoadMUS("music1.wav");
     gameMusic = Mix_LoadMUS("music2.wav");
@@ -103,7 +102,6 @@ void closeSDL() {
     SDL_DestroyTexture(houseTex);;
     SDL_DestroyTexture(helpTex);
     SDL_DestroyTexture(bushTex);
-    SDL_DestroyTexture(rockTex);
     SDL_DestroyTexture(pauseTex);  // Hủy texture Pause
     SDL_DestroyTexture(titleTex);
     SDL_DestroyTexture(nextLevelTex);
