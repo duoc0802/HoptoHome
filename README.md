@@ -1,8 +1,9 @@
-# HoptoHome-Pham Xuan Duoc-24020099
+# HoptoHome-Phạm Xuân Được-24020099
 - Video game demo: https://www.youtube.com/watch?v=uuX4BwD4XPE
 
 # Giới thiệu game:
 "Hop to Home" là một trò chơi giải đố vui nhộn với phong cách đồ họa dễ thương, nơi người chơi điều khiển một chú thỏ tìm đường về nhà. Trò chơi mang đến trải nghiệm thú vị cho mọi lứa tuổi nhờ sự kết hợp giữa yếu tố pathfinding (tìm đường) và puzzle (giải đố).
+* Cách tải game
 * Logic Game
 * Bắt đầu game
 * Chiến thắng
@@ -10,6 +11,14 @@
 * Các thành phần của game
 * Tính năng phát triển game
 * Source code game
+# Cách tải game (khoảng 125MB):
+- ẤN chọn ô "Code" trong màn hình chính của Github
+
+![image](https://github.com/user-attachments/assets/5e3c98a2-1ab5-4a61-8bc7-6210b4d158da)
+- Chọn "Download ZIP"
+
+![image](https://github.com/user-attachments/assets/bf0a7045-a337-4079-b17f-d3b2de57aae8)
+
 # Logic game:
 - Sử dụng chuột giúp chú thỏ di chuyển từ vị trí ban đầu đến ngôi nhà bằng cách vẽ một đường đi liên tục trên lưới ô vuông, đồng thời tránh các chướng ngại vật và đảm bảo đi qua tất cả các ô trống.
 # Bắt đầu game:
