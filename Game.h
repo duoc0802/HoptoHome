@@ -15,7 +15,6 @@ extern int currentLevel;
 extern int rabbitRow, rabbitCol;       // Tọa độ của thỏ
 extern int houseRow, houseCol;         // Tọa độ của nhà
 extern std::vector<std::pair<int, int>> obstacles; // Danh sách vật cản
-extern std::vector<std::pair<int, int>> bridges;   // Danh sách cây cầu
 extern int gameAreaX, gameAreaY;                   // Tọa độ khu vực chơi
 extern int score;                                  // Điểm số
 extern int TILE_SIZE;                              // Kích thước ô

@@ -21,7 +21,6 @@ SDL_Texture* musicOnTex  = nullptr;
 SDL_Texture* musicOffTex = nullptr;
 SDL_Texture* helpTex     = nullptr;
 SDL_Texture* bushTex     = nullptr;
-SDL_Texture* rockTex     = nullptr;
 SDL_Texture* pauseTex    = nullptr;  // Chỉ giữ lại texture cho nút Pause
 SDL_Texture* titleTex = nullptr;
 SDL_Texture* nextLevelTex = nullptr;
@@ -32,6 +31,7 @@ Mix_Music* menuMusic = nullptr;
 Mix_Music* gameMusic = nullptr;
 Mix_Music* loseMusic = nullptr;
 
+//Khơi tạo SDL và hệ thống con của SDL
 bool initSDL() {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
         std::cout << "SDL init error: " << SDL_GetError() << std::endl;
@@ -53,10 +53,6 @@ bool initSDL() {
         std::cout << "SDL_image init error: " << IMG_GetError() << std::endl;
         return false;
     }
-    SDL_Surface* image = IMG_Load("backgame.jpg");
-    if (!image) {
-        std::cout << "IMG_Load Error: " << IMG_GetError() << std::endl;
-    }
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
         std::cout << "SDL_mixer init error: " << Mix_GetError() << std::endl;
         return false;
@@ -68,6 +64,7 @@ bool initSDL() {
     return true;
 }
 
+//Tải lên các tài nguyên
 bool loadMedia() {
     gFont = TTF_OpenFont("font2.ttf", 22);
     if (!gFont) return false;
@@ -94,15 +91,16 @@ bool loadMedia() {
     return (menuMusic && gameMusic && loseMusic);
 }
 
+//giải phóng bộ nhớ khi không còn sử dụng
 void closeSDL() {
     SDL_DestroyTexture(bgMenuTex);
     SDL_DestroyTexture(bgGameTex);
-    SDL_DestroyTexture(bgOutsideTex);  // Hủy texture nền bên ngoài
+    SDL_DestroyTexture(bgOutsideTex);
     SDL_DestroyTexture(rabbitTex);
     SDL_DestroyTexture(houseTex);;
     SDL_DestroyTexture(helpTex);
     SDL_DestroyTexture(bushTex);
-    SDL_DestroyTexture(pauseTex);  // Hủy texture Pause
+    SDL_DestroyTexture(pauseTex);
     SDL_DestroyTexture(titleTex);
     SDL_DestroyTexture(nextLevelTex);
     SDL_DestroyTexture(youWinTex);

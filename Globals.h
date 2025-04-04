@@ -6,6 +6,6 @@ extern bool quit;
 extern bool musicOn;
 extern bool musicPaused;
 extern bool isMenu;
-extern const int totalLevels;  // Chỉ khai báo, không định nghĩa giá trị
+extern const int totalLevels;
 extern bool musicPlaying;
 #endif // GLOBALS_H

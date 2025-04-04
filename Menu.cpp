@@ -12,6 +12,7 @@ std::vector<Button> menuButtons;
 
 bool showHelp     = false;
 
+//Khởi tạo danh sách các nút trong menu
 void initMenuButtons() {
     menuButtons.clear();
     menuButtons.push_back({{380, 180, 200, 60}, BTN_START});  // Nút Start
@@ -19,6 +20,7 @@ void initMenuButtons() {
     menuButtons.push_back({{380, 380, 200, 60}, BTN_HELP});   // Nút Help
 }
 
+//Xử lý các sự kiện người dùng tương tác trong menu
 void handleMenuClick(int x, int y) {
     for (auto &btn : menuButtons) {
         if (x >= btn.box.x && x <= btn.box.x + btn.box.w &&
@@ -57,10 +59,8 @@ void renderMenu() {
     if (titleTex) {
         int titleWidth, titleHeight;
         SDL_QueryTexture(titleTex, NULL, NULL, &titleWidth, &titleHeight);
-        // Đặt y = 0 để đưa title.png lên sát đỉnh
         renderTexture(titleTex, (SCREEN_WIDTH - titleWidth) / 2, 30);
     }
-    // Phần còn lại của hàm giữ nguyên
     for (auto &btn : menuButtons) {
         SDL_SetRenderDrawColor(gRenderer, 128, 128, 128, 255);
         SDL_RenderFillRect(gRenderer, &btn.box);

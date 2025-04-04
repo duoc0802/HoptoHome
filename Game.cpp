@@ -14,17 +14,16 @@
 // Khai báo các biến toàn cục
 LevelManager levelManager;
 int currentLevel = 1;
-bool levelComplete = false;  // Định nghĩa biến
-bool gameOver = false;      // Định nghĩa biến
+bool levelComplete = false;
+bool gameOver = false;
 int rabbitRow, rabbitCol;
 int houseRow, houseCol;
 int gameAreaX, gameAreaY;
 int score = 0;
 int TILE_SIZE = 32;
 std::vector<std::pair<int, int>> obstacles;
-std::vector<std::pair<int, int>> bridges;
 std::vector<std::pair<int, int>> path;
-Uint32 startTime = 0;
+Uint32 startTime = 0; // Unit32 số nguyên không dấu, phù hợp sử dụng để chỉ thời gian sử dụng bằng mili giây
 int timeLeft = GAME_TIME;
 int rows, cols;
 int gameAreaWidth, gameAreaHeight;
@@ -38,6 +37,7 @@ int pauseButtonY = 0;
 int pauseButtonWidth = 60;  // Tăng kích thước nút
 int pauseButtonHeight = 60;
 
+//kiểm tra xem có phải chướng ngại vật không
 bool isObstacle(int row, int col) {
     for (auto &obs : obstacles) {
         if (obs.first == row && obs.second == col) return true;
@@ -45,6 +45,7 @@ bool isObstacle(int row, int col) {
     return false;
 }
 
+//kiểm tra điệu kiện thắng
 bool checkWin() {
     std::set<std::pair<int, int>> uniquePath(path.begin(), path.end());
     size_t totalCells = rows * cols - obstacles.size();
@@ -53,6 +54,7 @@ bool checkWin() {
            path.back() == std::make_pair(houseRow, houseCol);
 }
 
+//Vẽ lưới
 void renderGrid() {
     SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
     for (int r = 0; r <= rows; r++) {
@@ -63,6 +65,7 @@ void renderGrid() {
     }
 }
 
+//Vẽ toàn bộ giao diện của game
 void renderGame() {
     SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
     SDL_RenderClear(gRenderer);
@@ -77,6 +80,7 @@ void renderGame() {
 
     renderGrid();
 
+    //Vẽ chướng ngại vật
     for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
             if (isObstacle(r, c)) {
@@ -85,6 +89,7 @@ void renderGame() {
         }
     }
 
+    //Vẽ đường đi
     SDL_SetRenderDrawColor(gRenderer, 250, 170, 141, 255);
     int thickness = 20;
 
@@ -127,11 +132,13 @@ void renderGame() {
         }
     }
 
+    //Vẽ thỏ và nhà
     renderTexture(rabbitTex, rabbitCol * TILE_SIZE, rabbitRow * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     renderTexture(houseTex, houseCol * TILE_SIZE, houseRow * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 
     SDL_RenderSetViewport(gRenderer, NULL);
 
+    //Hiển thị bảng đếm ngược thời gian
     SDL_Color black = {0, 0, 0, 255};
     std::string timeText = "Time left: " + std::to_string(timeLeft) + "s";
     SDL_Texture* timeTex = renderText(timeText, black);
@@ -150,17 +157,18 @@ void renderGame() {
     if (scoreTex) {
         int scoreTexWidth;
         SDL_QueryTexture(scoreTex, NULL, NULL, &scoreTexWidth, &scoreTexHeight);
-        renderTexture(scoreTex, 10, 10 + timeTexHeight + 5);
+        renderTexture(scoreTex, 10,10 + timeTexHeight + 10);
         SDL_DestroyTexture(scoreTex);
     }
 
-    // Hiển thị nút Pause (giả sử lỗi ở đây)
+    // Hiển thị nút Pause
     if (pauseTex) {
         pauseButtonX = 10;
-        pauseButtonY = 10 + timeTexHeight + 5 + scoreTexHeight + 5; // Sử dụng scoreTexHeight
+        pauseButtonY = 10 + timeTexHeight + 10 + scoreTexHeight + 10; // Sử dụng scoreTexHeight
         renderTexture(pauseTex, pauseButtonX, pauseButtonY, pauseButtonWidth, pauseButtonHeight);
     }
 
+    //Hiển thị các thông báo trong quá trình chơi game
     if (levelComplete) {
         if (currentLevel < totalLevels) {
             if (nextLevelTex) {
@@ -187,6 +195,7 @@ void renderGame() {
     SDL_RenderPresent(gRenderer);
 }
 
+//Xử lý các sự kiện của người dùng tương tác (dùng chuột, bàn phím)
 void handleGameEvents() {
     SDL_Event e;
     while (SDL_PollEvent(&e)) {
@@ -244,6 +253,7 @@ void handleGameEvents() {
     }
 }
 
+//Vòng lặp chính của game, điều khiển toàn bộ quá trình chơi game
 void gameLoop() {
     levelComplete = false;
     gameOver = false;
@@ -258,7 +268,7 @@ void gameLoop() {
     Mix_PlayMusic(gameMusic, -1);
     musicPlaying = true;
 }
-
+    //tải dữ liệu các cấp độ
     levelManager.loadLevel(currentLevel);
     const Level& level = levelManager.getCurrentLevel();
 
@@ -269,7 +279,7 @@ void gameLoop() {
     obstacles = level.obstacles;
     rows = level.rows;
     cols = level.cols;
-
+    //Tính toán kích thước và vị trí khu vực chơi
     int margin = 20;
     int maxTileWidth = (SCREEN_WIDTH - 2 * margin) / cols;
     int maxTileHeight = (SCREEN_HEIGHT - 2 * margin) / rows;

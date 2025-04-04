@@ -43,10 +43,10 @@ int main(int argc, char* argv[]) {
         currentLevel = 1;
         musicPlaying = false; // Đặt lại để phát nhạc khi bắt đầu lại
     }
-} else if (gameOver) {
-    isMenu = true;
-    musicPlaying = false; // Đặt lại để phát nhạc khi bắt đầu lại
-}
+    } else if (gameOver) {
+        isMenu = true;
+        musicPlaying = false; // Đặt lại để phát nhạc khi bắt đầu lại
+    }
         }
     }
 
