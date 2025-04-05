@@ -30,7 +30,4 @@ SDL_Texture* renderText(const std::string &message, SDL_Color color) {
     SDL_FreeSurface(surf);
     return texture;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> a35aef98926204bf1ca75f7cdf7acdc3059513b9
