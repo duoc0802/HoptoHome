@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1743307915 source:d:\somen\code blocks\24020099\main.cpp
+1743791728 source:d:\somen\code blocks\24020099\main.cpp
 	"Globals.h"
 	"Constants.h"
 	"GameAssets.h"
@@ -11,12 +11,12 @@
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1743791593 source:d:\somen\code blocks\24020099\constants.cpp
+1743829304 source:d:\somen\code blocks\24020099\constants.cpp
 	"Constants.h"
 
 1743776891 d:\somen\code blocks\24020099\constants.h
 
-1743791593 source:d:\somen\code blocks\24020099\game.cpp
+1743827547 source:d:\somen\code blocks\24020099\game.cpp
 	"Game.h"
 	"GameAssets.h"
 	"Utils.h"
@@ -45,7 +45,7 @@
 	<SDL_mixer.h>
 	<SDL_ttf.h>
 
-1743307915 d:\somen\code blocks\24020099\utils.h
+1743829423 d:\somen\code blocks\24020099\utils.h
 	<SDL.h>
 	<string>
 
@@ -71,7 +71,7 @@
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1743791748 d:\somen\code blocks\24020099\menu.h
+1743829843 d:\somen\code blocks\24020099\menu.h
 	<SDL.h>
 	<vector>
 
@@ -87,7 +87,7 @@
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1743307915 source:d:\somen\code blocks\24020099\utils.cpp
+1743829263 source:d:\somen\code blocks\24020099\utils.cpp
 	"Utils.h"
 	"GameAssets.h"
 	<iostream>

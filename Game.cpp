@@ -34,7 +34,7 @@ Uint32 totalPausedTime = 0;
 // Biến để lưu kích thước và vị trí của nút Pause
 int pauseButtonX = 0;
 int pauseButtonY = 0;
-int pauseButtonWidth = 60;  // Tăng kích thước nút
+int pauseButtonWidth = 60;
 int pauseButtonHeight = 60;
 
 //kiểm tra xem có phải chướng ngại vật không

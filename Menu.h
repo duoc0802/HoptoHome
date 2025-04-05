@@ -17,6 +17,6 @@ extern std::vector<Button> menuButtons;
 void initMenuButtons();
 void handleMenuClick(int x, int y);
 void renderMenu();
-void menuLoop();
+
 
 #endif

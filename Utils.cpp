@@ -31,10 +31,3 @@ SDL_Texture* renderText(const std::string &message, SDL_Color color) {
     return texture;
 }
 
-void drawThickLine(int x1, int y1, int x2, int y2, int thickness) {
-    for (int i = -thickness / 2; i <= thickness / 2; ++i) {
-        SDL_RenderDrawLine(gRenderer, x1 + i, y1, x2 + i, y2);
-        SDL_RenderDrawLine(gRenderer, x1, y1 + i, x2, y2 + i);
-    }
-}
-
