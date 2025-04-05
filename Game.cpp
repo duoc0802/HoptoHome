@@ -20,7 +20,7 @@ int rabbitRow, rabbitCol;
 int houseRow, houseCol;
 int gameAreaX, gameAreaY;
 int score = 0;
-int TILE_SIZE = 32;
+int TILE_SIZE;
 std::vector<std::pair<int, int>> obstacles;
 std::vector<std::pair<int, int>> path;
 Uint32 startTime = 0; // Unit32 số nguyên không dấu, phù hợp sử dụng để chỉ thời gian sử dụng bằng mili giây
