@@ -86,8 +86,8 @@
 - Menu.cpp/.h: Tách biệt giao diện menu khỏi logic game, giúp dễ dàng cập nhật giao diện mà không can thiệp vào phần chơi.
 - Game.cpp/.h: Tập trung logic chính (render, xử lý input, kiểm tra thắng/thua), là "trái tim" của trò chơi.
 - Utils.cpp/.h: Cung cấp các hàm hỗ trợ để tránh lặp mã, tăng tính tái sử dụng.
-- Constants.h: Lưu các hằng số để dễ dàng điều chỉnh thông số game (như kích thước màn hình, thời gian).
-- Globals.h: Quản lý biến toàn cục, cho phép các thành phần khác nhau của game truy cập trạng thái chung.
+- Constants.cpp/.h: Lưu các hằng số để dễ dàng điều chỉnh thông số game (như kích thước màn hình, thời gian).
+- Globals.cpp/.h: Quản lý biến toàn cục, cho phép các thành phần khác nhau của game truy cập trạng thái chung.
 
 
 
